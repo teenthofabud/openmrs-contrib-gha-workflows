@@ -67,7 +67,7 @@ jobs:
 
     if: >-
       (github.event_name == 'push' || github.event_name == 'workflow_dispatch')
-      && github.repository_owner == 'openmrs'
+      && github.repository_owner == 'teenthofabud'
       && (github.ref_name == 'main' || startsWith(github.ref_name, 'patch/'))
       && (github.event.head_commit == null || !startsWith(github.event.head_commit.message, '(chore) Release'))
 
@@ -77,7 +77,7 @@ jobs:
       - name: Checkout inference action
         uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
         with:
-          repository: openmrs/openmrs-contrib-gha-workflows
+          repository: teenthofabud/openmrs-contrib-gha-workflows
           ref: ${{ github.job_workflow_sha }}
           sparse-checkout: |
             .github/actions
@@ -102,7 +102,7 @@ jobs:
         with:
           node-version: ${{ steps.params.outputs.node_version }}
           cache: 'yarn'
-          registry-url: 'https://registry.npmjs.org'
+          registry-url: 'https://npm.pkg.github.com'
 
       - name: 🗂️ Cache node_modules
         uses: actions/cache@55cc8345863c7cc4c66a329aec7e433d2d1c52a9 # v6.1.0
@@ -192,7 +192,7 @@ jobs:
 
     if: >-
       (github.event_name == 'push' || github.event_name == 'workflow_dispatch')
-      && github.repository_owner == 'openmrs'
+      && github.repository_owner == 'teenthofabud'
       && github.ref_name == 'main'
       && inputs.trigger_refapp_build
 
@@ -216,11 +216,11 @@ jobs:
         with:
           app-id: ${{ secrets.APP_ID }}
           private-key: ${{ secrets.APP_PRIVATE_KEY }}
-          owner: openmrs
+          owner: teenthofabud
           repositories: openmrs-distro-referenceapplication
 
       - name: 🚀 Trigger RefApp Frontend Docker Image Build
-        run: gh workflow run build-frontend.yml --repo openmrs/openmrs-distro-referenceapplication
+        run: gh workflow run build-frontend.yml --repo teenthofabud/openmrs-distro-referenceapplication
         env:
           GH_TOKEN: ${{ steps.app-token.outputs.token || secrets.BOT_PAT }}
 
@@ -228,7 +228,7 @@ jobs:
     name: Release
     runs-on: ubuntu-latest
 
-    if: github.event_name == 'release' && github.repository_owner == 'openmrs'
+    if: github.event_name == 'release' && github.repository_owner == 'teenthofabud'
 
     steps:
       - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
@@ -236,7 +236,7 @@ jobs:
       - name: Checkout inference action
         uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
         with:
-          repository: openmrs/openmrs-contrib-gha-workflows
+          repository: teenthofabud/openmrs-contrib-gha-workflows
           ref: ${{ github.job_workflow_sha }}
           sparse-checkout: |
             .github/actions
@@ -260,7 +260,7 @@ jobs:
         with:
           node-version: ${{ steps.params.outputs.node_version }}
           cache: 'yarn'
-          registry-url: 'https://registry.npmjs.org'
+          registry-url: 'https://npm.pkg.github.com'
 
       - name: 🗂️ Cache node_modules
         uses: actions/cache@55cc8345863c7cc4c66a329aec7e433d2d1c52a9 # v6.1.0
