@@ -34,7 +34,7 @@ jobs:
     permissions:
       contents: read
       actions: read
-      packages: write
+
 
     steps:
       - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
@@ -42,7 +42,7 @@ jobs:
       - name: Checkout inference action
         uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
         with:
-          repository: openmrs/openmrs-contrib-gha-workflows
+          repository: teenthofabud/openmrs-contrib-gha-workflows
           ref: ${{ github.job_workflow_sha }}
           sparse-checkout: |
             .github/actions
@@ -111,7 +111,3 @@ jobs:
           name: ${{ github.event.repository.name }}-packages
           path: ${{ steps.params.outputs.artifact_path }}
 
-      - name: 📦 Publish to GitHub Packages
-        run: yarn ci:publish
-        env:
-          NODE_AUTH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
